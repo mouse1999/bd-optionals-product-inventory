@@ -1,5 +1,6 @@
 public class ProductUtility {
     // This class will be mocked in the test cases.
+    public ProductUtility() {}
 
     /**
      * Find the name of the item with the given ID.

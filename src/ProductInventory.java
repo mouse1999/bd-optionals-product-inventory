@@ -34,11 +34,31 @@ public class ProductInventory {
      * @return Map[Integer, String] of product IDs to product names. Does not include products without names.
      */
     Map<Integer, String> findProductNames() {
-        // TODO: replace stub implementation
-        Map<Integer, String> stubMap = new HashMap<Integer, String>();
-        for (Integer productID : productIDs) {
-            stubMap.put(productID, "");
+
+        if(productIDs == null) {
+            throw new IllegalArgumentException("productID is null");
         }
+
+
+        Map<Integer, String> stubMap = new HashMap<Integer, String>();
+        String productName;
+
+        try{
+            for (Integer productID : productIDs) {
+
+                productName = productUtility.findProductName(productID);
+
+                if (productName != null) {
+                    stubMap.put(productID, productUtility.findProductName(productID));
+                }
+
+            }
+
+        }catch (NullPointerException ex) {
+            throw new IllegalArgumentException("productUtility is null");
+
+        }
+
         return stubMap;
     }
 
@@ -48,8 +68,15 @@ public class ProductInventory {
      * @return Optional[Boolean] containing whether a product is ready to ship.
      */
     Optional<Boolean> isProductReady(Integer productID) {
-        // TODO: replace stub implementation
-        Boolean stubResult = productUtility.isProductReady(0);
-        return Optional.of(stubResult);
+
+        Boolean stubResult;
+        try{
+            stubResult = productUtility.isProductReady(productID);
+
+        }catch (NullPointerException ex) {
+            throw new IllegalArgumentException("The productID was null");
+
+        }
+        return Optional.ofNullable(stubResult);
     }
 }
